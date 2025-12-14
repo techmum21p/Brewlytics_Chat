@@ -1,10 +1,14 @@
+# Datasets
+/Cafe_Rewards_Offers
+/Capstone_Guides/
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
 *$py.class
 
-# C extensions
-*.so
+.DS_Store
 
 # Distribution / packaging
 .Python
