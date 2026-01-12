@@ -1,0 +1,6 @@
+customer_id,offer_id,received_time,difficulty,duration,offer_type,in_email,in_mobile,in_social,in_web,offer_received,offer_viewed,offer_completed,target,completion_time,time_to_action,became_member_on,gender,age,income,membership_year,is_demographics_missing,age_group,income_bracket,became_member_date,membership_duration_days,membership_month,tenure_group
+78afa995795e4d85b5d9ceeca43f5fef,9b98b8c7a33c4b65b9aebfe6a799e6d9,0,5.0,7.0,bogo,1.0,1.0,0.0,1.0,1,1,1,1,132.0,132.0,20170509,F,75,100000.0,2017,0,61-75,Very High,2017-05-09,443,5,1-2 years
+a03223e636434f42ac4c3df47e8bac43,0b1e1539f2cc45b7b9fa7c272da2e1d7,0,20.0,10.0,discount,1.0,0.0,0.0,1.0,1,1,0,0,,,20170804,Missing,118,0.0,2017,1,76+,Missing,2017-08-04,356,8,6-12 months
+e2127556f4f64592b11af22de27a7932,2906b810c7d4411798c6938adc9daaa5,0,10.0,7.0,discount,1.0,1.0,0.0,1.0,1,1,0,0,,,20180426,M,68,70000.0,2018,0,61-75,High,2018-04-26,91,4,0-6 months
+8ec6ce2a7e7949b1bf142def7d0e0586,fafdcd668e3743c1bb461111dcafc2a4,0,10.0,10.0,discount,1.0,1.0,1.0,1.0,1,1,0,0,,,20170925,Missing,118,0.0,2017,1,76+,Missing,2017-09-25,304,9,6-12 months
+68617ca6246f4fbc85e91a2a49552598,4d5c57ea9a6940dd891ad53e9dbe8da0,0,10.0,5.0,bogo,1.0,1.0,1.0,1.0,1,1,0,0,,,20171002,Missing,118,0.0,2017,1,76+,Missing,2017-10-02,297,10,6-12 months
