@@ -8,6 +8,7 @@ from google import genai
 from openai import OpenAI
 import anthropic
 
+
 @st.cache_resource
 def load_model_and_artifacts():
     model_path = 'Cafe_Rewards_Offers/models/random_forest.pkl'
