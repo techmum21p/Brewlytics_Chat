@@ -26,6 +26,11 @@ Brewlytics_Chat/
 │   ├── events.csv              # Transaction events
 │   ├── processed/             # Processed datasets for ML
 │   └── models/                 # Trained machine learning models
+├── brewlytics_app/             # Streamlit Web App
+│   ├── app.py                 # Streamlit application
+│   ├── Dockerfile              # Docker configuration
+│   ├── docker-compose.yml      # Docker Compose setup
+│   └── README.md               # Web app documentation
 └── README.md                    # This file
 ```
 
@@ -35,6 +40,27 @@ The project uses three main datasets:
 - **Customers**: 17,000 records with demographic information (age, gender, income, membership details)
 - **Offers**: 10 types of promotional offers (bogo, discount, informational) with varying difficulty and duration
 - **Events**: 306,534 transaction events tracking offer reception, viewing, and completion
+
+### 📥 Downloading Required Files
+
+Due to their size, the datasets and trained models are not included in this repository. Download them from:
+
+**[Google Drive Link - Insert Here]**
+
+After downloading, extract and place the files in:
+```
+Cafe_Rewards_Offers/
+├── customers.csv
+├── offers.csv
+├── events.csv
+├── models/
+│   └── random_forest.pkl
+├── processed/
+│   ├── scaler.pkl
+│   └── feature_names.pkl
+└── segmentation/
+    └── kmeans_model.pkl
+```
 
 ## 🔍 Key Findings from Analysis
 
@@ -147,6 +173,77 @@ The project uses three main datasets:
 - **Positive for Completion**: Discount offers, BOGO offers, higher income
 - **Negative for Completion**: Longer duration, higher difficulty, informational offers
 
+## 🚀 Web Application & Docker Deployment
+
+A production-ready Streamlit web application has been deployed to predict offer completion rates in real-time. The app is fully containerized with Docker for easy deployment.
+
+### Web Application Features
+
+- **File Upload Interface**: Upload CSV files with customer and offer data
+- **Real-time Predictions**: Generate predictions using the trained Random Forest model
+- **Interactive Dashboard**: View prediction statistics, probability distributions, and top customers
+- **Download Results**: Export predictions with completion probabilities to CSV
+- **Containerized**: Fully Dockerized for consistent deployment
+
+### Quick Start with Docker
+
+#### Using Docker Compose (Recommended)
+
+```bash
+cd brewlytics_app
+docker-compose up
+```
+
+The app will be available at `http://localhost:8501`
+
+**Note:** The app requires the trained model and data files. Download them from the [Google Drive link](#-dataset-overview) above before running.
+
+#### Using Docker Build & Run
+
+```bash
+cd brewlytics_app
+
+# Build the image
+docker build -t brewlytics-app .
+
+# Run the container
+docker run -p 8501:8501 -v $(pwd)/../Cafe_Rewards_Offers:/app/Cafe_Rewards_Offers brewlytics-app
+```
+
+### Running Locally (without Docker)
+
+```bash
+cd brewlytics_app
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Access the app at `http://localhost:8501`
+
+### Required CSV Format
+
+Your uploaded CSV should contain these columns:
+
+**Offer Details**: `received_time`, `difficulty`, `duration`, `offer_type`
+
+**Marketing Channels**: `in_email`, `in_mobile`, `in_social`, `in_web`, `offer_received`
+
+**Customer Demographics**: `age`, `income`, `gender`, `age_group`, `income_bracket`
+
+**Membership Information**: `membership_year`, `membership_duration_days`, `membership_month`, `tenure_group`
+
+**Flags**: `is_demographics_missing`
+
+### Output
+
+The app generates predictions with:
+- `prediction` - Binary prediction (0: Will Not Complete, 1: Will Complete)
+- `prediction_label` - Human-readable label
+- `completion_probability` - Probability of completing (0-1)
+- `non_completion_probability` - Probability of not completing (0-1)
+
+For detailed documentation, see `brewlytics_app/README.md`
+
 ## 🎯 Use Cases
 
 ### 1. Real-time Offer Recommendation
@@ -192,23 +289,41 @@ This project demonstrates:
 
 ## 🛠️ How to Run
 
-### Prerequisites
+### Option 1: Run the Web Application (Fastest)
+
+1. **Download required files** from Google Drive (see [Dataset Overview](#-dataset-overview) section)
+2. Place `Cafe_Rewards_Offers/` folder in the project root
+3. Run the app:
+```bash
+cd brewlytics_app
+docker-compose up
+```
+
+Then navigate to `http://localhost:8501` and upload your CSV file to get predictions.
+
+### Option 2: Run Jupyter Notebooks (Full Analysis)
+
+1. **Download required files** from Google Drive (see [Dataset Overview](#-dataset-overview) section)
+2. Place `Cafe_Rewards_Offers/` folder in the project root
+
+#### Prerequisites
 ```bash
 pip install pandas numpy scikit-learn matplotlib seaborn shap xgboost jupyter
 ```
 
-### Execution Order
+#### Execution Order
 1. Run `01_EDA.ipynb` - Understand the data
 2. Run `02_Feature_Engg.ipynb` - Prepare features for modeling
 3. Run `03_Modeling.ipynb` - Train and evaluate models
 4. Run `04_PCA.ipynb` - Optimize feature space
 5. Run `05_SHAP.ipynb` - Understand model decisions
 6. Run `06_Customer_Segmentation.ipynb` - Discover customer segments
+7. Run `07_Bias_Fairness_Analysis.ipynb` - Analyze model fairness
 
-### Data Files
+#### Data Files
 Ensure the following files are in `Cafe_Rewards_Offers/`:
 - `customers.csv`
-- `offers.csv` 
+- `offers.csv`
 - `events.csv`
 
 ## 📄 License
@@ -218,6 +333,7 @@ This project is for educational purposes. Please ensure compliance with data usa
 
 ---
 
-**Project Status**: ✅ Complete (All notebooks functional and analyzed)
-**Last Updated**: January 2025
-**Total Analysis**: 6 comprehensive notebooks covering end-to-end data science pipeline
+**Project Status**: ✅ Complete & Deployed (All notebooks functional, web app deployed via Docker)
+**Last Updated**: January 2026
+**Total Analysis**: 7 comprehensive notebooks covering end-to-end data science pipeline
+**Deployment**: Containerized Streamlit web application with Docker
