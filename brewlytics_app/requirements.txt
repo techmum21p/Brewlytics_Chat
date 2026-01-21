@@ -5,10 +5,10 @@ numpy
 matplotlib
 seaborn
 plotly
-scikit-learn
+scikit-learn==1.7.2
 pillow
 
 # AI/LLM clients
-google-generativeai
+google-genai
 openai
 anthropic
