@@ -57,6 +57,9 @@ def preprocess_data(df, scaler, feature_names):
     for col, mapping in ordinal_mappings.items():
         if col in df_processed.columns:
             df_processed[f'{col}_encoded'] = df_processed[col].map(mapping)
+        else:
+            df_processed[f'{col}_encoded'] = 0
+        if col in df_processed.columns:
             df_processed = df_processed.drop(col, axis=1)
     
     cols_to_drop = ['index', 'customer_id', 'offer_id', 'completion_time', 
@@ -80,12 +83,12 @@ def preprocess_data(df, scaler, feature_names):
                 mode_val = df_processed[col].mode()[0] if len(df_processed[col].mode()) > 0 else 0
                 df_processed[col] = df_processed[col].fillna(mode_val)
     
-    numerical_cols_to_scale = [col for col in feature_names 
-                               if col in df_processed.columns 
-                               and df_processed[col].nunique() > 2]
+    scaler_feature_names = scaler.feature_names_in_
+    for col in scaler_feature_names:
+        if col not in df_processed.columns:
+            df_processed[col] = 0
     
-    if numerical_cols_to_scale:
-        df_processed[numerical_cols_to_scale] = scaler.transform(df_processed[numerical_cols_to_scale])
+    df_processed[scaler_feature_names] = scaler.transform(df_processed[scaler_feature_names])
     
     missing_features = set(feature_names) - set(df_processed.columns)
     for feat in missing_features:
