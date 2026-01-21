@@ -4,9 +4,10 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 from io import BytesIO
-import google.generativeai as genai
+from google import genai
 from openai import OpenAI
 import anthropic
+
 
 @st.cache_resource
 def load_model_and_artifacts():
@@ -174,10 +175,9 @@ Give exactly 3 bullet-point marketing strategies to help this customer complete 
 
 def generate_marketing_strategy_gemini(customer_data, segment_profile, api_key, model="gemini-2.5-flash"):
     try:
-        genai.configure(api_key=api_key)
-        model_client = genai.GenerativeModel(model)
+        client = genai.Client(api_key=api_key)
         prompt = build_strategy_prompt(customer_data, segment_profile)
-        response = model_client.generate_content(prompt)
+        response = client.models.generate_content(model=model, contents=prompt)
         return response.text.strip()
     except Exception as e:
         return f"Error: {str(e)}"
@@ -345,7 +345,7 @@ def main():
 
                 with col_left:
                     st.markdown("#### 📋 Detailed Predictions")
-                    st.dataframe(result_df.head(50), use_container_width=True)
+                    st.dataframe(result_df.head(50), width="stretch")
 
                     csv = result_df.to_csv(index=False)
                     st.download_button(
@@ -367,7 +367,7 @@ def main():
 
                     st.markdown("#### 🔝 Top 10 Most Likely to Complete")
                     top_customers = result_df.nlargest(10, 'completion_probability')[['age', 'income', 'completion_probability']]
-                    st.dataframe(top_customers, use_container_width=True)
+                    st.dataframe(top_customers, width="stretch")
 
                 st.markdown("---")
                 st.markdown("### 🎯 Dynamic Marketing Strategy Generator")
@@ -505,7 +505,7 @@ def main():
                                 'age', 'income', 'gender', 'tenure_group', 'offer_type',
                                 'completion_probability', 'segment', 'recommended_strategy'
                             ]],
-                            use_container_width=True,
+                            width="stretch",
                             column_config={
                                 "recommended_strategy": st.column_config.TextColumn(
                                     "Recommended Strategy",
