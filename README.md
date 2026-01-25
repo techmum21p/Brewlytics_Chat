@@ -1,4 +1,4 @@
-# Brewlytics Chat: Starbucks Customer Analytics & Offer Completion Prediction
+# Brewlytics: Customer Analytics & Offer Completion Prediction Leveraging GenAI for Personalized Marketing Strategy Recommendations
 
 ## 📊 Project Overview
 
