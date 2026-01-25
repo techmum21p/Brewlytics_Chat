@@ -2,7 +2,7 @@
 
 ## 📊 Project Overview
 
-Brewlytics Chat is a comprehensive data science project that analyzes a cafe's customer behavior and builds machine learning models to predict offer completion rates. The project demonstrates the complete data science pipeline from exploratory data analysis to model deployment and interpretation. An unique feature of this project is the customer segmentation done using K-Means clustering and leveraging LLM to provide personalized recommendations.
+Brewlytics is a comprehensive data science project that analyzes a cafe's customer behavior and builds machine learning models to predict offer completion rates. The project demonstrates the complete data science pipeline from exploratory data analysis to model deployment and interpretation. An unique feature of this project is the customer segmentation done using K-Means clustering and leveraging LLM to provide personalized recommendations.
 
 ## 🎯 Business Objective
 
